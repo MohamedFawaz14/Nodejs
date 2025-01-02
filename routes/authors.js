@@ -12,7 +12,9 @@ router.get('/',async(req,res)=>
     try
     {
        const authors = await  Author.find(searchOptions)
-        res.render('authors/index',{authors :authors,
+        res.render('authors/index',
+            {
+            authors :authors,
             searchOptions: req.query
         })
     }
@@ -27,7 +29,8 @@ router.get('/',async(req,res)=>
 router.get('/new', (req,res)=>
 {
 
- res.render('authors/new', {author : new Author()})
+ res.render('authors/new', 
+    {author : new Author()})
 
 })
 
@@ -38,7 +41,7 @@ router.post('/', async (req, res) => {
 
     try {
         const newAuthor = await author.save()
-        res.redirect('/') 
+        res.redirect('/authors') 
     } 
     catch (err) {
         res.render('authors/new', {
