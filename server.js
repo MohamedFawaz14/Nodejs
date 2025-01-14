@@ -8,8 +8,7 @@ if(process.env.NODE_ENV !== 'production')
     const app = express()
     const expressLayouts = require('express-ejs-layouts');
     const bodyParser = require('body-parser')
-    
-    
+    const methodOverride = require('method-override')
     const indexRouter = require('./routes/index')
     const authorRouter = require('./routes/authors')
     const bookRouter = require('./routes/books')
@@ -18,13 +17,16 @@ if(process.env.NODE_ENV !== 'production')
     app.set('views',__dirname+'/views')
     app.set('layout','./layouts/layout')
     app.use(expressLayouts)
+    app.use(methodOverride('_method'))
     app.use(express.static('public'))
     app.use(bodyParser.urlencoded({limit : '10mb',extended :false}))
     
     const mongoose = require('mongoose');
 
 // Use a properly declared and encoded MongoDB URI
-const MONGO_URI = "mongodb+srv://mohamedfawazsb:gN_jsmWdpZYz7%40j@cluster0.krjoy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// const MONGO_URI = "mongodb+srv://mohamedfawazsb:gN_jsmWdpZYz7%40j@cluster0.krjoy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const  MONGO_URI = 'mongodb+srv://mohamedfawazsb:gN_jsmWdpZYz7%40j@cluster0.krjoy.mongodb.net/'
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to Mongoose'))

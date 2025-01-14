@@ -1,20 +1,8 @@
 const express = require('express')
 const router = express.Router()
-// const multer = require('multer')
-// const path = require('path')
-// const fs = require('fs')
 const Book = require('../models/book')
 const Author = require('../models/author')
-// const uploadPath = path.join('public', Book.coverImageBasePath)
 const imageMimeTypes = ['image/jpeg','image/png','image/gif']
-
-
-// const upload = multer({
-//     dest : uploadPath,
-//     fileFilter : (req,file, callback) =>{
-//         callback(null,imageMimeTypes.includes(file.mimetype))
-//     }
-// })
 
 router.get('/',async(req,res)=>
 {
@@ -85,6 +73,7 @@ saveCover(book,req.body.cover)
         if(coverEncoded == null) return
 
         const cover = JSON.parse(coverEncoded)
+       
         if(cover != null && imageMimeTypes.includes(cover.type))
         {
             book.coverImage = new Buffer.from(cover.data,'base64')
@@ -117,3 +106,22 @@ saveCover(book,req.body.cover)
     }
 
 module.exports = router
+
+
+
+
+
+
+
+// Used when using multer 
+// const multer = require('multer')
+// const path = require('path')
+// const fs = require('fs')
+// const uploadPath = path.join('public', Book.coverImageBasePath)
+// const imageMimeTypes = ['image/jpeg','image/png','image/gif']
+// const upload = multer({
+//     dest : uploadPath,
+//     fileFilter : (req,file, callback) =>{
+//         callback(null,imageMimeTypes.includes(file.mimetype))
+//     }
+// })
